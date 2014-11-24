@@ -1,0 +1,65 @@
+*{
+	margin: 0px;
+	padding: 0px;
+
+}
+div.header{
+	background-color: blue;
+	position: relative;
+	padding: 10px;
+	padding-left: 25px;
+}
+div.header form{
+	position: absolute;
+	top: 50%;
+	right: 2.5%;
+	transform: translate(0, -50%);
+}
+div.header input.login{
+	background-color: #339933;
+	border-color: #00FF00;
+	width: 75px;
+	margin-left: 5px;
+}
+body{
+	background-image: url(background.jpg);
+	background-size: cover;
+}
+div.body{
+	width: 550px;
+	padding: 20px;
+	margin-right: 35px;
+	background-color: blue;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 5%;
+	border-radius: 15px;
+}
+div.body input{
+	margin: 10px;
+	width: 150px;
+	padding: 7.5px;
+	border-radius: 10px;
+}
+div.body label{
+	margin: 10px;
+	width: 150px;
+	padding: 7.5px;
+	border-radius: 10px;
+}
+div.body select{
+	margin: 10px;
+	width: 150px;
+	padding: 7.5px;
+	border-radius: 10px;
+}
+div.body input.voornaam{
+	width: 100px;
+}
+div.body input.achternaam{
+	width: 200px;
+}
+div.body input.registreer{
+	background-color: #339933;
+	border-color: #00FF00;
+}

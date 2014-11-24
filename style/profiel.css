@@ -1,0 +1,71 @@
+*{
+	margin: 0px;
+	padding: 0px;
+
+}
+div.header{
+	background-color: blue;
+	padding: 10px;
+	padding-left: 25px;
+}
+div.header h1{
+	width: 150px;
+
+}
+div.header a{
+	float: right;
+	color: black;
+	text-decoration : none;
+	margin-top: -25px;
+	margin-right: 5px;
+	padding: 6px;
+}
+div.header a:hover{
+	text-decoration: underline;
+}
+img.menu{
+	float: right;
+	margin-top: -42.5px;
+}
+body{
+	background-image: url(background.jpg);
+	background-size: cover;
+}
+img.avatar{
+	float: left;
+}
+div.body{
+	width: 900px;
+	padding: 20px;
+	background-color: blue;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 5%;
+	border-radius: 15px;
+	padding-bottom: 10px;
+}
+div.body input{
+	margin-top: 10px;
+}
+div.body select{
+	margin-top: 10px;
+}
+a.veranderen{
+	color: black;
+	text-decoration: none;
+}
+a.veranderen:hover{
+	text-decoration: underline;
+}
+div.post{
+	margin-bottom: 10px;
+	margin-left: 32px;
+	border: 1px solid black;
+}
+div.post a{
+	color: black;
+	text-decoration: none;
+}
+div.post a:hover{
+	text-decoration: underline;
+}

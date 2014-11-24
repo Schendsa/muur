@@ -1,0 +1,84 @@
+*{
+	margin: 0px;
+	padding: 0px;
+
+}
+div.header{
+	background-color: blue;
+	padding: 10px;
+	padding-left: 25px;
+}
+div.header h1{
+	width: 150px;
+
+}
+div.header a{
+	float: right;
+	color: black;
+	text-decoration : none;
+	margin-top: -25px;
+	margin-right: 5px;
+	padding: 6px;
+}
+div.header a:hover{
+	text-decoration: underline;
+}
+img.menu{
+	float: right;
+	margin-top: -42.5px;
+}
+body{
+	background-image: url(background.jpg);
+	background-size: cover;
+}
+img.avatar{
+	float: left;
+}
+div.body{
+	width: 900px;
+	padding: 20px;
+	background-color: blue;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 5%;
+	border-radius: 15px;
+	padding-bottom: 10px;
+}
+form.newpost{
+	margin-left: 32px;
+}
+textarea.newpost{
+	width: 866px;
+	height: 100px;
+}
+textarea.newcomment{
+	width: 866px;
+	height: 50px;
+}
+input.createpost{
+	margin-bottom: 10px;
+}
+div.post{
+	border: 1px solid black;
+	margin-left: 32px;
+	margin-bottom: 10px;
+}
+div.post a{
+	color: black;
+	text-decoration: none;
+}
+div.post a:hover{
+	text-decoration: underline;
+}
+div.comment{
+	border: 1px solid black;
+	margin-left: 64px;
+	margin-bottom: 10px;
+}
+div.comment a{
+	color: black;
+	text-decoration: none;
+}
+div.comment a:hover{
+	text-decoration: underline;
+}
