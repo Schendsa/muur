@@ -7,10 +7,13 @@
 	<body>
 		<!-- START BLOCK : Header -->
 		<div class="header">
-			<p><h1>De Muur</h1></p>
+			<h1>De Muur</h1>
 			<a href='muur.php?actie=uitloggen'>Uitloggen</a>
 			<a href='profiel.php?id={USER}'>Profiel</a>
 			<a href='muur.php'>Muur</a>
+			<!-- START BLOCK : admin -->
+			<a href='admin.php'>Admin</a>
+			<!-- END BLOCK : admin -->
 		</div>
 		<!-- END BLOCK : Header -->
 

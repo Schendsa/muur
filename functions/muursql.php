@@ -121,7 +121,7 @@
 		return $result;
 	}
 	function findCommentsById($db, $id){
-		$sql = "SELECT *,comment.datum as comment_datum, comment.content as comment_content, comment.id as comment_id, comment.status as comment_status, gebruiker.status as gebruiker_status, gebruiker.id as gebruiker_id FROM comment INNER JOIN post ON post.id=comment.post_id INNER JOIN gebruiker ON comment.gebruiker_id=gebruiker.id INNER JOIN persoon ON gebruiker.persoon_id=persoon.id WHERE post_id = $id ORDER BY post.datum desc";
+		$sql = "SELECT *,comment.datum as comment_datum, comment.content as comment_content, comment.id as comment_id, comment.status as comment_status, gebruiker.status as gebruiker_status, gebruiker.id as gebruiker_id FROM comment INNER JOIN post ON post.id=comment.post_id INNER JOIN gebruiker ON comment.gebruiker_id=gebruiker.id INNER JOIN persoon ON gebruiker.persoon_id=persoon.id WHERE post_id = $id AND comment.status = 1 ORDER BY post.datum desc";
 		$result = $db->query($sql);
 		return $result;
 	}

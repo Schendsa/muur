@@ -50,9 +50,7 @@
 				$id = $_POST['postid'];
 				$tpl->assign("POSTID", $id);
 				$result = findPostById($db, $id);
-				foreach ($result as $row) {
-					$tpl->assign("POSTCONTENT", $row['content']);
-				}
+				$tpl->assign("POSTCONTENT", $_POST['content']);
 				break;
 
 			case 'delete':
@@ -114,12 +112,13 @@
 						$tpl->assign( "POSTER", "Unknown" );
 						$tpl->assign( "POSTERID", '0' );
 					}
-					$tpl->assign("CONTENT", $row['content']);
+					$content = $row['content'];
+					$tpl->assign("CONTENT", $content);
 					$tpl->assign( "DATUM",  strftime("%A %d %B %Y", $row['datum']) );
 					$tpl->assign( "STATUS", $row['status'] );
-					$tpl->assign( "AVATAR", $row['avatar'] );
 					if ($row['gebruiker_id'] == $_SESSION['user'] and $row['post_status'] == 1) {
 						$tpl->newBlock("delete");
+						$tpl->assign("CONTENT", $content);
 						$tpl->assign( "POSTID", $row['post_id']);
 					}
 					$result = 'NULL';
@@ -168,13 +167,15 @@
 						$tpl->assign( "POSTER", "Unknown" );
 						$tpl->assign( "POSTERID", '0' );
 					}
-					$tpl->assign("CONTENT", $row['content']);
+					$content = $row['content'];
+					$tpl->assign("CONTENT", $content);
 					$tpl->assign( "POSTID", $row['post_id']);
 					$tpl->assign( "DATUM",  strftime("%A %d %B %Y", $row['datum']) );
 					$tpl->assign( "STATUS", $row['status'] );
 					$tpl->assign( "AVATAR", $row['avatar'] );
 					if ($row['gebruiker_id'] == $_SESSION['user'] and $row['post_status'] == 1) {
 						$tpl->newBlock("delete");
+						$tpl->assign("CONTENT", $content);
 						$tpl->assign( "POSTID", $row['post_id']);
 					}
 				}

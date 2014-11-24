@@ -8,12 +8,12 @@
 		<!-- START BLOCK : Header -->
 		<div class="header">
 			<h1>De Muur</h1>
-			<!-- START BLOCK : admin -->
-			<a href='admin.php'>Admin</a>
-			<!-- END BLOCK : admin -->
 			<a href='muur.php?actie=uitloggen'>Uitloggen</a>
 			<a href='profiel.php?id={USER}'>Profiel</a>
 			<a href='muur.php'>Muur</a>
+			<!-- START BLOCK : admin -->
+			<a href='admin.php'>Admin</a>
+			<!-- END BLOCK : admin -->
 		</div>
 		<!-- END BLOCK : Header -->
 
@@ -36,7 +36,7 @@
 				<form class="edit" method="post" action="muur.php?actie={EDITTYPE}">
 					<textarea type="text" name="content" class="newpost" placeholder="Change your post!" required>{POSTCONTENT}</textarea>
 					<input type="hidden" name="id" value="{POSTID}"/>
-					<input type="hidden" name="postid" value="{COMMENTID}"
+					<input type="hidden" name="postid" value="{COMMENTID}">
 					<input type="submit" value="Edit post" class="createpost"/>
 				</form>
 			</div>
@@ -50,6 +50,7 @@
 				<!-- START BLOCK : delete -->
 				<form name="edit" method="post" action="muur.php?actie=edit">
 					<input type="hidden" value="{POSTID}" name="postid">
+					<input type="hidden" value="{CONTENT}" name="content">
 					<input type="submit" value="Edit">
 				</form>
 				<form name="delete" method="post" action="muur.php?actie=delete">
@@ -71,13 +72,13 @@
 			</div>
 			<!-- END BLOCK : newcomment -->
 			<!-- START BLOCK : comment -->
-			<img src="{AVATAR}" width="32px" height="32px" class="avatar">
 			<div class="comment">
 				<p><a href='profiel.php?id={POSTERID}'>{POSTER}</a> heeft gecomment op {DATUM}</p>
 				<p>{CONTENT}</p>
 				<!-- START BLOCK : commentdelete -->
 				<form name="edit" method="post" action="muur.php?actie=commentedit">
 					<input type="hidden" value="{COMMENTID}" name="postid">
+					<input type="hidden" value="{CONTENT}" name="content">
 					<input type="submit" value="Edit">
 				</form>
 				<form name="delete" method="post" action="muur.php?actie=commentdelete">
