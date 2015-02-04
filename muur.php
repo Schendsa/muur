@@ -50,7 +50,7 @@
 				$id = $_POST['postid'];
 				$tpl->assign("POSTID", $id);
 				$result = findPostById($db, $id);
-				$tpl->assign("POSTCONTENT", $_POST['content']);
+				$tpl->assign("CONTENT", $_POST['content']);
 				break;
 
 			case 'delete':
@@ -64,13 +64,13 @@
 				$tpl->assign("USER", $_SESSION['user']);
 				$tpl->newBlock("body");
 				$tpl->newBlock("edit");
+				$tpl->assign("CONTENT", $_POST['content']);
 				$tpl->assign("EDITTYPE", "editcomment");
 				$id = $_POST['postid'];
 				$tpl->assign("POSTID", $id);
 				$result = findPostById($db, $id);
 				foreach ($result as $row) {
-				$tpl->assign("COMMENTID", $row['']);
-				$tpl->assign("POSTCONTENT", $row['content']);
+				$tpl->assign("COMMENTID", $row['id']);
 				}
 				break;
 
@@ -97,9 +97,31 @@
 				header("Location:muur.php?actie=comments&id=".$postid."");
 				break;
 
+			case 'Like':
+				$typeid = $_GET['id'];
+				$type = $_GET['liketype'];
+				$user = $_SESSION['user'];
+				$datum = time();
+				likePostOrComment($db,$user,$type,$typeid,$datum);
+				break;
+
+			case 'Unlike':
+				$typeid = $_GET['id'];
+				$type = $_GET['liketype'];
+				$user = $_SESSION['user'];
+				$datum = time();
+				unlikePostOrComment($db,$user,$type,$typeid,$datum);
+				break;
+
 			case 'comments':
 				$tpl->newBlock("Header");
 				$tpl->assign("USER", $_SESSION['user']);
+				$admincheck = adminCheck($db, $_SESSION['user']);
+				foreach ($admincheck as $row) {
+					if($row == 1){
+						$tpl->newBlock("admin");
+					}
+				}
 				$tpl->newBlock("body");
 				$tpl->newBlock("row");
 				$id = $_GET['id'];
@@ -114,15 +136,13 @@
 					}
 					$content = $row['content'];
 					$tpl->assign("CONTENT", $content);
-					$tpl->assign( "DATUM",  strftime("%A %d %B %Y", $row['datum']) );
+					$tpl->assign( "DATUM",  strftime("%A %d %B %Y", $row['post_datum']) );
 					$tpl->assign( "STATUS", $row['status'] );
-					if ($row['gebruiker_id'] == $_SESSION['user'] and $row['post_status'] == 1) {
+					if ($row['gebruiker_id'] == $_SESSION['user'] and $row['post_status'] == 1) {		
 						$tpl->newBlock("delete");
 						$tpl->assign("CONTENT", $content);
 						$tpl->assign( "POSTID", $row['post_id']);
 					}
-					$result = 'NULL';
-					$row = 'NULL';
 				}
 				$tpl->newBlock("newcomment");
 				$tpl->assign("USERID",$_SESSION['user']);
@@ -143,16 +163,21 @@
 					$tpl->assign( "AVATAR", $row['avatar'] );
 					if ($row['gebruiker_id'] == $_SESSION['user'] and $row['comment_status'] == 1) {
 						$tpl->newBlock("commentdelete");
+						$tpl->assign( "CONTENT", $row['comment_content']);
 						$tpl->assign( "COMMENTID", $row['comment_id']);
 					}
 				}
-				
 				break;
 
 			default:
 				$tpl->newBlock("Header");
 				$tpl->assign("USER", $_SESSION['user']);
-				adminCheck($db, $_SESSION['user']);
+				$admincheck = adminCheck($db, $_SESSION['user']);
+				foreach ($admincheck as $row) {
+					if($row == 1){
+						$tpl->newBlock("admin");
+					}
+				}
 				$tpl->newBlock("body");
 				$tpl->assign( "USERID", $_SESSION['user'] );
 				$tpl->newBlock("newpost");
@@ -170,16 +195,23 @@
 					$content = $row['content'];
 					$tpl->assign("CONTENT", $content);
 					$tpl->assign( "POSTID", $row['post_id']);
-					$tpl->assign( "DATUM",  strftime("%A %d %B %Y", $row['datum']) );
+					$tpl->assign( "DATUM",  strftime("%A %d %B %Y", $row['post_datum']) );
 					$tpl->assign( "STATUS", $row['status'] );
 					$tpl->assign( "AVATAR", $row['avatar'] );
+					if ($row['gebruiker_id'] == $_SESSION['user'] and $row['type_id'] == $row['post_id'] and $row['type'] == 'post') {
+						$tpl->assign("TYPELIKE", 'post');
+						$tpl->assign("NAMELIKE", 'Unlike');	
+					}else{
+						$tpl->assign("TYPELIKE", 'post');
+						$tpl->assign("NAMELIKE", 'Like');
+					}
 					if ($row['gebruiker_id'] == $_SESSION['user'] and $row['post_status'] == 1) {
 						$tpl->newBlock("delete");
 						$tpl->assign("CONTENT", $content);
-						$tpl->assign( "POSTID", $row['post_id']);
+						$tpl->assign("POSTID", $row['post_id']);
 					}
 				}
-				break;
-			}
-		$tpl->printToScreen();
+				break;	
 	}
+	$tpl->printToScreen();
+}

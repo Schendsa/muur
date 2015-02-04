@@ -105,7 +105,7 @@
 		$sth->execute();
 	}
 	function findNonBannedPosts($db){
-		$sql = "SELECT *, post.id as post_id, post.status as post_status, gebruiker.status as gebruiker_status FROM post INNER JOIN gebruiker ON post.gebruiker_id=gebruiker.id INNER JOIN persoon ON gebruiker.persoon_id=persoon.id WHERE post.status=1 ORDER BY post.datum desc";
+		$sql = "SELECT *, post.id as post_id, post.status as post_status, gebruiker.status as gebruiker_status, post.datum as post_datum FROM post INNER JOIN gebruiker ON post.gebruiker_id=gebruiker.id INNER JOIN persoon ON gebruiker.persoon_id=persoon.id LEFT JOIN `like` ON gebruiker.id=like.gebruiker_id WHERE post.status=1 ORDER BY post.datum desc";
 		$result = $db->query($sql);
 		return $result;
 	}
@@ -116,7 +116,7 @@
 		return $row;
 	}
 	function findPostById($db, $id){
-		$sql = "SELECT *, post.id as post_id, post.status as post_status, gebruiker.status as gebruiker_status FROM post INNER JOIN gebruiker ON post.gebruiker_id=gebruiker.id INNER JOIN persoon ON gebruiker.persoon_id=persoon.id where post.id = $id";
+		$sql = "SELECT *, post.id as post_id, post.status as post_status, gebruiker.status as gebruiker_status, post.datum as post_datum FROM post INNER JOIN gebruiker ON post.gebruiker_id=gebruiker.id INNER JOIN persoon ON gebruiker.persoon_id=persoon.id where post.id = $id";
 		$result = $db->query($sql);
 		return $result;
 	}
@@ -141,4 +141,55 @@
 	function deleteComment($db, $id){
 		$sql = "UPDATE comment SET status=0 WHERE id=$id";
 		$result = $db->exec($sql);
+	}
+	function findAllComments($db){
+		$sql = "SELECT *, comment.id as comment_id, comment.status as comment_status, gebruiker.status as gebruiker_status FROM comment INNER JOIN gebruiker ON comment.gebruiker_id=gebruiker.id INNER JOIN persoon ON gebruiker.persoon_id=persoon.id ORDER BY comment.datum desc";
+		$result = $db->query($sql);
+		return $result;
+	}
+	function unDeletePost($db, $id){
+		$sql = "UPDATE post SET status=1 WHERE id=$id";
+		$result = $db->exec($sql);
+	}
+	function unDeleteComment($db, $id){
+		$sql = "UPDATE comment SET status=1 WHERE id=$id";
+		$result = $db->exec($sql);
+	}
+	function findAllUserInfo($db){
+		$sql = "SELECT *, gebruiker.id as gebruiker_id, gebruiker.status as gebruiker_status FROM gebruiker INNER JOIN persoon ON gebruiker.persoon_id=persoon.id";
+		$result = $db->query($sql);
+		return $result;
+	}
+	function adminUser($db, $id){
+		$sql = "UPDATE gebruiker SET groep_id=2 WHERE id=$id";
+		$result = $db->exec($sql);
+	}
+	function unAdminUser($db, $id){
+		$sql = "UPDATE gebruiker SET groep_id=1 WHERE id=$id";
+		$result = $db->exec($sql);
+	}
+	function unDeleteUser($db, $id){
+		$sql = "UPDATE gebruiker SET status=1 WHERE id=$id";
+		$result = $db->exec($sql);
+	}
+	function deleteUser($db, $id){
+		$sql = "UPDATE gebruiker SET status=0 WHERE id=$id";
+		$result = $db->exec($sql);
+	}
+	function findLikesCount($db,$id,$type){
+		$sql = "SELECT count(*) FROM `like` WHERE type=$type AND type_id=$id";
+		$result = $db->exec($sql);
+		return $result;
+	}
+	function findLikesById($db, $id, $type){
+		$sql = "SELECT * FROM `like` WHERE id=$id AND type=$type";
+		$result = $db->exec($sql);
+		return $result;
+	}
+	function likePostOrComment($db, $user, $type, $typeid, $datum){
+		$sql = "INSERT INTO `like` (gebruiker_id, type_id, `type`, datum) VALUES ('$user', '$typeid', '$type', '$datum')";
+		$result = $db->exec($sql);
+	}
+	function unlikePostOrComment($db,$id){
+		$sql = "";
 	}

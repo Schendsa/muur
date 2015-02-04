@@ -26,6 +26,12 @@
 			case 'sort':
 				$tpl->newBlock("Header");
 				$tpl->assign("USER", $_SESSION['user']);
+				$admincheck = adminCheck($db, $_SESSION['user']);
+				foreach ($admincheck as $row) {
+					if($row == 1){
+						$tpl->newBlock("admin");
+					}
+				}
 				$tpl->newBlock("body");
 				$result = findPostsById($db, $id);
 				foreach ($result as $row) {
@@ -78,6 +84,12 @@
 			default:
 				$tpl->newBlock("Header");
 				$tpl->assign("USER", $_SESSION['user']);
+				$admincheck = adminCheck($db, $_SESSION['user']);
+				foreach ($admincheck as $row) {
+					if($row == 1){
+						$tpl->newBlock("admin");
+					}
+				}
 				$tpl->newBlock("body");
 				if ($id == $_SESSION['user']) {
 					$tpl->newBlock("bodyedit");

@@ -34,7 +34,7 @@
 				<h1>Post editen</h1>
 				<img src="{USERAVATAR}" width="32px" height="32px" class="avatar">
 				<form class="edit" method="post" action="muur.php?actie={EDITTYPE}">
-					<textarea type="text" name="content" class="newpost" placeholder="Change your post!" required>{POSTCONTENT}</textarea>
+					<textarea type="text" name="content" class="newpost" placeholder="Change your post!" required>{CONTENT}</textarea>
 					<input type="hidden" name="id" value="{POSTID}"/>
 					<input type="hidden" name="postid" value="{COMMENTID}">
 					<input type="submit" value="Edit post" class="createpost"/>
@@ -47,6 +47,7 @@
 				<p><a href='profiel.php?id={POSTERID}'>{POSTER}</a> heeft gepost op {DATUM}</p>
 				<p>{CONTENT}</p>
 				<a href='muur.php?actie=comments&id={POSTID}'>Comments</a>
+				<a href='muur.php?actie={NAMELIKE}&liketype={TYPELIKE}&id={POSTID}'>{NAMELIKE}</a>
 				<!-- START BLOCK : delete -->
 				<form name="edit" method="post" action="muur.php?actie=edit">
 					<input type="hidden" value="{POSTID}" name="postid">
